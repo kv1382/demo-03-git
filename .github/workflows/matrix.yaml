@@ -8,7 +8,8 @@ on:
 
 jobs:
   prepare:
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
+    runs-on: [my-runner]
     strategy:
       matrix:
           check-sites: [onliner.by, google.com, github.com]
