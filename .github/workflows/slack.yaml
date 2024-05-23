@@ -1,0 +1,31 @@
+name: Test for self-runner
+
+
+on: push
+
+
+jobs:
+  build:
+    runs-on: [my-runner]
+    steps:
+    - run: echo "The ${{ github.repository }} repository will be cloned to the runner."
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: ls -lar
+    - name: Display hostname
+      run: hostname -a
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: demo-03-git
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_ICON: https://github.com/rtCamp.png?size=48
+        SLACK_MESSAGE: 'Post Content :rocket:'
+        SLACK_TITLE: 'Looks like job is done :)'
+        SLACK_USERNAME: kv1382
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
